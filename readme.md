@@ -62,8 +62,6 @@ with GCSDevice('C-884') as pidevice:
 
 See also the provided samples in the `samples` subdirectory. Start with `quickstart.py`.
 
-
-
 ## Requirements
 
 Download these python packages with pip install:
@@ -75,12 +73,9 @@ Download these python packages with pip install:
 With pipython.interfaces.piusb you can connect a USB device without using the GCS DLL.
 This works only with Linux and requires LibUSB which usually is provided by the OS.
 
-
-
 ## Arguments
 
 From now on `pidevice` refers to a connected `GCSDevice` instance.
-
 
 ### Setter functions
 
@@ -180,9 +175,7 @@ pos = pidevice.qPOS('AXIS_1') # only one axis is possible
 print(pos['AXIS_1'])
 ~~~
 
-
 ## Some hints...
-
 
 ### Helpers
 
@@ -206,7 +199,6 @@ from pipython import PILogger, DEBUG, INFO, WARNING, ERROR, CRITICAL
 
 PILogger.setLevel(DEBUG)
 ~~~
-
 
 ### GCSError and error check
 
@@ -285,7 +277,6 @@ while pidevice.bufstate is not True:
 data = pidevice.bufdata
 ~~~
 
-
 ### Textual interface
 
 Besides the functions implemented in GCSCommands you can send GCS commands as strings to the
@@ -309,3 +300,11 @@ available. They will never query an error from the device.
 print(pidevice.ReadGCSCommand('POS?'))
 pidevice.GcsCommandset('MOV X 1.23')
 ~~~
+
+### Usefull data for development and testing
+- https://github.com/libusb/libusb
+- https://github.com/Ulm-IQO/qudi/issues/503
+- https://github.com/diamond2nv/qudi/blob/POI_autocatch/hardware/motor/piezo_stage_pi_py_gcs2.py
+- https://github.com/diamond2nv/qudi/tree/POI_autocatch
+- libpi_pi_gcs2.so https://www.physikinstrumente.com/fileadmin/user_upload/web_files/TPSWNote_PhysikInstrumenteGmbH_Co_KG.pdf
+

@@ -1,3 +1,5 @@
+# NOTE: to look for libpi_pi_gcs2.so -> https://www.physikinstrumente.com/fileadmin/user_upload/web_files/TPSWNote_PhysikInstrumenteGmbH_Co_KG.pdf
+
 from math import cos, sin, pi
 from pipython import GCSDevice, pitools
 from pipython.datarectools import getservotime
