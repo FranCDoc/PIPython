@@ -307,4 +307,6 @@ pidevice.GcsCommandset('MOV X 1.23')
 - https://github.com/diamond2nv/qudi/blob/POI_autocatch/hardware/motor/piezo_stage_pi_py_gcs2.py
 - https://github.com/diamond2nv/qudi/tree/POI_autocatch
 - libpi_pi_gcs2.so https://www.physikinstrumente.com/fileadmin/user_upload/web_files/TPSWNote_PhysikInstrumenteGmbH_Co_KG.pdf
-
+- libpi_pi_gcs2.so http://www.le.infn.it/~chiodini/allow_listing/pi/Manuals/PIGCS_2_0_DLL_SM151E210.pdf
+- https://www.physikinstrumente.com/en/products/software-suite/communication-concept-interfaces
+- https://pipython.physikinstrumente.com/quickstart.html
