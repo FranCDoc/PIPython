@@ -310,3 +310,8 @@ pidevice.GcsCommandset('MOV X 1.23')
 - libpi_pi_gcs2.so http://www.le.infn.it/~chiodini/allow_listing/pi/Manuals/PIGCS_2_0_DLL_SM151E210.pdf
 - https://www.physikinstrumente.com/en/products/software-suite/communication-concept-interfaces
 - https://pipython.physikinstrumente.com/quickstart.html
+
+### PI Python install procedure
+
+~/PI_drivers/Linux/PI_E727-1.3.0.0-INSTALL/PI_E727$ sudo chmod +x INSTALL 
+~/PI_drivers/Linux/PI_E727-1.3.0.0-INSTALL/PI_E727$ sudo ./INSTALL
