@@ -315,3 +315,74 @@ pidevice.GcsCommandset('MOV X 1.23')
 
 ~/PI_drivers/Linux/PI_E727-1.3.0.0-INSTALL/PI_E727$ sudo chmod +x INSTALL 
 ~/PI_drivers/Linux/PI_E727-1.3.0.0-INSTALL/PI_E727$ sudo ./INSTALL
+
+- NOTE: to look for libpi_pi_gcs2.so -> https://www.physikinstrumente.com/fileadmin/user_upload/web_files/TPSWNote_PhysikInstrumenteGmbH_Co_KG.pdf
+
+### PI handshake commands
+
+    >>> from pipython import GCSDevice
+    >>> pidevice = GCSDevice()
+    >>> devices = pidevice.EnumerateUSB()
+    >>> pidevice.ConnectUSB(devices[0]) # connect to the first device
+    
+    descriptor->bLength:    18
+    descriptor->bDescriptorType:    1
+    descriptor->bcdUSB:     512
+    descriptor->bDeviceClass:       0
+    descriptor->bDeviceSubClass:    0
+    descriptor->bDeviceProtocol:    0
+    descriptor->bMaxPacketSize0:    64
+    descriptor->idVendor:   6770
+    descriptor->idProduct:  4126
+    descriptor->bcdDevice:  256
+    descriptor->iManufacturer:      1
+    descriptor->iProduct:   2
+    descriptor->iSerialNumber:      3
+    descriptor->bNumConfigurations: 1
+
+    Config 0
+            bLength:        9
+            bDescriptorType:        2
+            wTotalLength:   32
+            bNumInterfaces: 1
+            bConfigurationValue:    1
+            iConfiguration: 0
+            bmAttributes:   192
+            MaxPower:       32
+
+            Interface 0 - 1 alt settigns
+
+                    setting 0
+    :               bLength:        9
+                    bDescriptorType:        4
+                    bInterfaceNumber:       0
+                    bAlternateSetting:      0
+                    bNumEndpoints:  2
+                    bInterfaceClass:        255
+                    bInterfaceSubClass:     0
+                    bInterfaceProtocol:     0
+                    iInterface:     0
+
+                            Endpoint 0
+                            bLength:        7
+                            bDescriptorType:        5
+                            bEndpointAddress:       1
+                            bmAttributes:   2
+                            wMaxPacketSize: 64
+                            bInterval:      0
+                            bRefresh:       0
+                            bSynchAddress:  0
+
+                            Endpoint 1
+                            bLength:        7
+                            bDescriptorType:        5
+                            bEndpointAddress:       130
+                            bmAttributes:   2
+                            wMaxPacketSize: 64
+                            bInterval:      0
+                            bRefresh:       0
+                            bSynchAddress:  0
+                            
+    >>> print('connected: {}'.format(pidevice.qIDN().strip()))
+
+    connected: (c)2015-2018 Physik Instrumente (PI) GmbH & Co. KG, E-727.3CDA, 120040681, 14.11.01.05
