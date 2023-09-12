@@ -20,7 +20,9 @@ from collections import OrderedDict
 
 __signature__ = 0x78f311ef9154cfabb67422d50367fa8a
 
-CONTROLLERNAME = 'E-880'  # 'C-884' will also work
+# CONTROLLERNAME = 'E-880'  # 'C-884' will also work
+CONTROLLERNAME = 'E-727.3CDA' # E-727.3CDA; C-867.2U2
+
 STAGES = None
 REFMODES = ['FRF', 'FRF']
 
