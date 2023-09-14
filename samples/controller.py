@@ -3,9 +3,9 @@ PI controller
 Author: Franco Chiesa Docampo
 """
 
-from pipython import GCSDevice
-from pipython import pitools
+from pipython import GCSDevice, pitools
 import time
+import csv
 
 class PI:
     def __init__(self):
@@ -27,9 +27,8 @@ class PI:
 
     def shift(self,x:str,y:str):
         """Move relative to current position"""
-        x = str(float(x)+22.5)
-        y = str(float(y)+22.5)
-        # if absolute position (x,y) is bigger than 44.9 or smaller than 7.49, return out of limits
+        x = str(float(x)+22.5) # from relative to absolute position
+        y = str(float(y)+22.5) # from relative to absolute position
         if float(x) > 44.9 or float(x) < 7.49 or float(y) > 44.9 or float(y) < 7.49:
             return "Out of limits, stay in range 7.5-45 (um) for both x and y."
         self.pidevice.MOV(self.pidevice.axes[:2],(x,y))
@@ -38,3 +37,25 @@ class PI:
         """Get current position"""
         res = self.pidevice.qPOS()
         return res
+    
+    def getmap(self):
+        """Get relative 2D movement path from a CSV file. First row is x, second row is y."""
+        map_file = 'relative_coor_2d_path.csv'
+        shift_x_values = []
+        shift_y_values = []
+        with open(map_file, newline='') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                shift_x_values.append(float(row[0]))
+                shift_y_values.append(float(row[1]))
+        print("x_values:", shift_x_values)
+        print("y_values:", shift_y_values)
+        return shift_x_values, shift_y_values
+
+    def run_map(self,shift_x_values,shift_y_values):
+        """Run relative 2D movement map"""
+        for i in range(len(shift_x_values)):
+            self.shift(shift_x_values[i],shift_y_values[i])
+            pitools.waitontarget(self.pidevice)
+            print("Current position:",self.getpos())
+        print("Done")
