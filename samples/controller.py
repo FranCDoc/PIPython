@@ -22,7 +22,8 @@ class PI:
         self.pidevice.MOV(self.pidevice.axes[:2],(22.5,22.5)) # initial position
         time.sleep(0.25)
         res = self.pidevice.qPOS()
-        print(res)
+        print("Zero midpoint set at: ",res)
+        print("Your limits are 7.5-45 (um) for both x and y.")
 
     def shift(self,x:str,y:str):
         """Move relative to current position"""
@@ -30,7 +31,7 @@ class PI:
         y = str(float(y)+22.5)
         # if absolute position (x,y) is bigger than 44.9 or smaller than 7.49, return out of limits
         if float(x) > 44.9 or float(x) < 7.49 or float(y) > 44.9 or float(y) < 7.49:
-            return "out of limits, stay in range 7.5-45 (um) for both x and y"
+            return "Out of limits, stay in range 7.5-45 (um) for both x and y."
         self.pidevice.MOV(self.pidevice.axes[:2],(x,y))
 
     def getpos(self):
