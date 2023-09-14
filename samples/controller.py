@@ -1,5 +1,6 @@
 """
 PI controller
+Author: Franco Chiesa Docampo
 """
 
 from pipython import GCSDevice

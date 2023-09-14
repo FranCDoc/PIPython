@@ -1,3 +1,8 @@
+"""
+PI test controller
+Author: Franco Chiesa Docampo
+"""
+
 import controller
 
 if __name__ == "__main__":
