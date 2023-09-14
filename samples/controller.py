@@ -52,10 +52,15 @@ class PI:
         print("y_values:", shift_y_values)
         return shift_x_values, shift_y_values
 
-    def run_map(self,shift_x_values,shift_y_values):
+    def run_map(self,shift_x_values:list,shift_y_values:list):
         """Run relative 2D movement map"""
         for i in range(len(shift_x_values)):
             self.shift(shift_x_values[i],shift_y_values[i])
             pitools.waitontarget(self.pidevice)
             print("Current position:",self.getpos())
         print("Done")
+
+    def geterror(self):
+        """Get current error"""
+        res = self.pidevice.qERR()
+        return res
