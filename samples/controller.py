@@ -1,12 +1,14 @@
 """
-PI API (WIP)
+PI controller
 """
+
 from pipython import GCSDevice
 from pipython import pitools
 import time
 
 class PI:
     def __init__(self):
+        """Initialize PI controller"""
         pidevice = GCSDevice()
         devices = pidevice.EnumerateUSB()
         pidevice.ConnectUSB(devices[0]) # connect to the first device
@@ -15,6 +17,7 @@ class PI:
         self.pidevice = pidevice
             
     def setzero(self):
+        """Set 22.5,22.5 as zero point"""
         self.pidevice.MOV(self.pidevice.axes[:2],(22.5,22.5)) # initial position
         time.sleep(0.25)
         res = self.pidevice.qPOS()
