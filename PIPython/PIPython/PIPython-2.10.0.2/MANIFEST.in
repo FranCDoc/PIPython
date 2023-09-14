@@ -1,0 +1,7 @@
+recursive-include site *
+recursive-include samples *
+include changelog.md
+include eula.md
+include readme.md
+include index.html
+prune test

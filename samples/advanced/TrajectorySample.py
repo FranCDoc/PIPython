@@ -20,7 +20,9 @@ from math import cos, sin, pi
 from pipython import GCSDevice, pitools
 from pipython.datarectools import getservotime
 
-CONTROLLERNAME = 'C-867.2U2'
+import time
+
+CONTROLLERNAME = 'E-727.3CDA' # E-727.3CDA; C-867.2U2
 STAGES = []  # connect stages to axes
 REFMODE = []  # reference the connected stages
 
@@ -32,16 +34,18 @@ BUFFERMIN = 200  # minimum number of points in buffer until motion is started
 
 def main():
     """Connect controller, setup stages and start trajectories."""
-    with GCSDevice(CONTROLLERNAME) as pidevice:
-        #pidevice.ConnectRS232(comport=1, baudrate=115200)
-        pidevice.ConnectUSB(serialnum='0116023162')
+    with GCSDevice() as pidevice:
+        devices = pidevice.EnumerateUSB()
+        print(devices)
+        pidevice.ConnectUSB(devices[0]) # connect to the first device
+        # pidevice.ConnectRS232(comport=1, baudrate=115200)
+        # pidevice.ConnectUSB(serialnum='120040681') # 120040681; 0116023162
         # pidevice.ConnectTCPIP(ipaddress='192.168.178.42')
         print('connected: {}'.format(pidevice.qIDN().strip()))
         print('maximum buffer size: {}'.format(pidevice.qSPA(1, 0x22000020)[1][0x22000020]))
         print('initialize connected stages...')
-       # pitools.startup(pidevice, stages=STAGES, refmode=REFMODE)
+        pitools.startup(pidevice, stages=STAGES, refmode=REFMODE)
         runprofile(pidevice)
-
 
 def runprofile(pidevice):
     """Move to start position, set up and run trajectories and wait until they are finished.

@@ -1,0 +1,714 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Physik Instrumente (PI) GmbH & Co. KG">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
+    
+    
+      
+        <title>Data Recorder GCS 2.0 - PIPython</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.3de6f41f.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="styles/pi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-recorder-gcs-20" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="PIPython" class="md-header__button md-logo" aria-label="PIPython" data-md-component="logo">
+      
+  <img src="files/pi.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PIPython
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Recorder GCS 2.0
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="PIPython" class="md-nav__button md-logo" aria-label="PIPython" data-md-component="logo">
+      
+  <img src="files/pi.svg" alt="logo">
+
+    </a>
+    PIPython
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart.html" class="md-nav__link">
+        Quick Start
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connect.html" class="md-nav__link">
+        Device Connection
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Data Recorder GCS 2.0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="datarecorder20.html" class="md-nav__link md-nav__link--active">
+        Data Recorder GCS 2.0
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-the-data-recorder" class="md-nav__link">
+    Preparing the data recorder
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing the data recorder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-the-record-rate" class="md-nav__link">
+    Setting the record rate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-the-record-time" class="md-nav__link">
+    Setting the record time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-the-record-source-and-options" class="md-nav__link">
+    Setting the record source and options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-the-trigger-event" class="md-nav__link">
+    Setting the trigger event
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recording-data" class="md-nav__link">
+    Recording data
+  </a>
+  
+    <nav class="md-nav" aria-label="Recording data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-recording" class="md-nav__link">
+    Starting the recording
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waiting-for-the-recording-to-finish" class="md-nav__link">
+    Waiting for the recording to finish
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-out-the-recorded-data" class="md-nav__link">
+    Reading out the recorded data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processing-the-recorded-data" class="md-nav__link">
+    Processing the recorded data
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing the recorded data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#displaying-the-data-with-matplotlib" class="md-nav__link">
+    Displaying the data with matplotlib
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-the-data-into-a-numpy-array" class="md-nav__link">
+    Converting the data into a NumPy array
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datarecorder30.html" class="md-nav__link">
+        Data Recorder GCS 3.0
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="history.html" class="md-nav__link">
+        History
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="eula.html" class="md-nav__link">
+        EULA
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="data-recorder-gcs-20">Data Recorder GCS 2.0</h1>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>These instructions are valid for controllers using GCS 2.0.</p>
+</div>
+<p>A PI device has one or more record tables that can be filled with data (i.e. values) from a configurable source.</p>
+<p>PIPython comes with <code>Datarecorder</code> class for the configuration of data recording: <code>pipython.datarectools.Datarecorder</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pipython</span> <span class="kn">import</span> <span class="n">GCSDevice</span>
+<span class="kn">from</span> <span class="nn">pipython</span> <span class="kn">import</span> <span class="n">datarectools</span><span class="p">,</span> <span class="n">pitools</span>
+<span class="n">pidevice</span> <span class="o">=</span> <span class="n">GCSDevice</span><span class="p">()</span>
+<span class="n">pidevice</span><span class="o">.</span><span class="n">InterfaceSetupDlg</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="hll"><span class="n">drec</span> <span class="o">=</span> <span class="n">datarectools</span><span class="o">.</span><span class="n">Datarecorder</span><span class="p">(</span><span class="n">pidevice</span><span class="p">)</span>
+</span><span class="o">...</span>
+</code></pre></div>
+<div class="admonition quote">
+<p>In the further examples on this page, <code>pidevice</code> refers to an instance of <code>pipython.GCSDevice</code> and <code>drec</code> refers to an instance of <code>pipython.datarectools.Datarecorder</code>.</p>
+</div>
+<p>The typical workflow for data recording is as follows:</p>
+<ul>
+<li><a href="#preparing-the-data-recorder">Preparing the data recorder</a></li>
+<li><a href="#recording-data">Recording data</a></li>
+<li><a href="#reading-out-the-recorded-data">Reading out the recorded data</a></li>
+<li><a href="#processing-the-recorded-data">Processing the recorded data</a></li>
+</ul>
+<p>For an example see <code>samples/datarecorder.py</code>.</p>
+<h2 id="preparing-the-data-recorder">Preparing the data recorder</h2>
+<p>The configuration of data recording consists of the following steps:</p>
+<ul>
+<li><a href="#setting-the-record-rate">Setting the record rate</a></li>
+<li><a href="#setting-the-record-time">Setting the record time</a></li>
+<li><a href="#setting-the-record-source-and-options">Setting the record source and options</a></li>
+<li><a href="#setting-the-trigger-event">Setting the trigger event</a></li>
+</ul>
+<h3 id="setting-the-record-rate">Setting the record rate</h3>
+<p>With the <code>Datarecorder</code> property <code>samplerate</code> you can configure the record rate in multiples of
+the controller-specific servo cycle time. The higher the record rate, the
+slower the data is recorded.
+With the property <code>sampletime</code> you can configure the record rate in seconds.
+With the property <code>samplefrequ</code> you can configure the record rate in hertz.</p>
+<p>These properties use the GCS command <code>RTR</code> to configure the record table rate on the device.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># drec.samplerate = 1</span>
+<span class="c1"># drec.sampletime = 1E-5</span>
+<span class="hll"><span class="n">drec</span><span class="o">.</span><span class="n">samplefrequ</span> <span class="o">=</span> <span class="mi">1000</span>
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data recorder rate: </span><span class="si">{:d}</span><span class="s1"> servo cycles&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">drec</span><span class="o">.</span><span class="n">samplerate</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data recorder rate: {:.g} seconds&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">drec</span><span class="o">.</span><span class="n">sampletime</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data recorder rate: </span><span class="si">{:.2f}</span><span class="s1"> Hertz&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">drec</span><span class="o">.</span><span class="n">samplefrequ</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="setting-the-record-time">Setting the record time</h3>
+<p>By default the entire data recorder buffer is used to record data.
+The <code>Datarecorder</code> class offers two properties to limit the data to be recorded:</p>
+<ul>
+<li><code>numvalues</code>: number of data points to be recorded</li>
+<li><code>rectime</code>: record time in seconds</li>
+</ul>
+<p>Setting one of these properties will change the other accordingly.</p>
+<p>Use the <code>rectimemax</code> property to use the entire data recorder buffer and adjust <code>samplerate</code> accordingly.</p>
+<h3 id="setting-the-record-source-and-options">Setting the record source and options</h3>
+<p>With the <code>Datarecorder</code> property <code>options</code> you can configure which <em>record option</em> (measurement) is to be recorded in a specified <em>record table</em>.</p>
+<p>The record options are avaiable via <code>pipython.datarectools.RecordOptions</code>.</p>
+<p>With the property <code>sources</code> you can configure which <em>record source</em> (e.g. an axis or channel) is to be recorded in a specified <em>record table</em>.</p>
+<p>The properties <code>options</code> and <code>source</code> can each get either a list of values or a single value as argument.</p>
+<ul>
+<li>If <code>options</code> is a single value and <code>sources</code> is a list, <code>option</code> is used for all <code>sources</code>.</li>
+<li>If <code>sources</code> is a single value and <code>options</code> is a list, the <code>options</code> are used for the single <code>source</code>.</li>
+<li>If both are lists, the lists must contain the same number of elements. The fist <code>option</code> is used for the first <code>source</code> and recorded to record table 1, the second <code>option</code> is used for the second <code>source</code> and recorded to record table 2, and so on. </li>
+</ul>
+<p>If no record option is specified, <code>RecordOptions.ACTUAL_POSITION_2</code> is used.</p>
+<p>If no source is specified, all connected axes are used.</p>
+<p>Examples:</p>
+<ul>
+<li>
+<p>Set the recording of two values for one axis
+<div class="highlight"><pre><span></span><code><span class="n">drec</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">ACTUAL_POSITION_2</span><span class="p">,</span>
+                <span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">COMMANDED_POSITION_1</span><span class="p">]</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="n">pidevice</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Set the recording of one value for two axes
+<div class="highlight"><pre><span></span><code><span class="n">drec</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">ACTUAL_POSITION_2</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Configure four recordings: record option 81 for analog input lines 1 and 2, record option 73 for axis X, and record option 1 for axis Y
+<div class="highlight"><pre><span></span><code><span class="n">drec</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">ANALOG_INPUT_81</span><span class="p">,</span>
+                <span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">ANALOG_INPUT_81</span><span class="p">,</span>
+                <span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">MOTOR_OUTPUT_73</span><span class="p">,</span>
+                <span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">COMMANDED_POSITION_1</span><span class="p">]</span>
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="setting-the-trigger-event">Setting the trigger event</h3>
+<p>With the <code>Datarecorder</code> property <code>trigsources</code> you can specify <em>when</em> the recording is to be started, e.g. <em>immediately</em> or with the <em>next command that changes a position</em>.</p>
+<p>The trigger events are avaiable via <code>pipython.datarectools.TriggerSources</code>.</p>
+<p>The property <code>trigsources</code> can get either a list of values or a single value as <em>trigger option</em> argument.</p>
+<ul>
+<li>If you set the property <code>trigsources</code> with a single value, this <em>trigger option</em> is used with all record tables. The shortcut for "to be used for all record tables" is the record table ID "0". (Please note that "real" record table IDs start with "1".)</li>
+<li>If <code>trigsources</code> is called with a list as argument, the <code>trigger options</code> will be used with the corresponding record table IDs: The fist <code>trigger option</code> is used for record table 1, the second for record table 2, and so on. </li>
+</ul>
+<p>If no trigger event is specified, <code>TriggerSources.NEXT_COMMAND_WITH_RESET_2</code> is used. Using this event deactivates the error check.</p>
+<div class="admonition info">
+<p class="admonition-title">Note<p>Please note that not all controllers support a record table dependent trigger source. Such controllers only support one trigger source for all record tables. See the controller's user manual to find out which is the appropriate way for your device.</p>
+</p>
+</div>
+<p>Examples:</p>
+<ul>
+<li>
+<p>Configure two recordings for one axis triggered by a position changing command
+<div class="highlight"><pre><span></span><code><span class="n">drec</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">(</span><span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">ACTUAL_POSITION_2</span><span class="p">,</span>
+                <span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">COMMANDED_POSITION_1</span><span class="p">)</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="n">pidevice</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="hll"><span class="n">drec</span><span class="o">.</span><span class="n">trigsources</span> <span class="o">=</span> <span class="n">datarectools</span><span class="o">.</span><span class="n">TriggerSources</span><span class="o">.</span><span class="n">POSITION_CHANGING_COMMAND_1</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Set 'trigsources' to a position changing command for record table 1, and "triggerd by the next GCS command" for record table 2</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">trigsources</span> <span class="o">=</span> <span class="p">(</span><span class="n">datarectools</span><span class="o">.</span><span class="n">TriggerSources</span><span class="o">.</span><span class="n">POSITION_CHANGING_COMMAND_1</span><span class="p">,</span>
+                    <span class="n">datarectools</span><span class="o">.</span><span class="n">TriggerSources</span><span class="o">.</span><span class="n">NEXT_COMMAND_WITH_RESET_2</span><span class="p">)</span>
+<span class="o">...</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Useful helper functions<p>The helper functions <code>getrecopt()</code> and <code>gettrigsources()</code> enable converting a descriptive string, e.g., from an INI file, into the corresponding option value.    <br />
+These functions split the string argument by the underscore delimiter ("_") and return the first option that matches all elements of the string. Matches are not case-sensitive and may be abbreviated. Abbreviations must start with the first letter of the option name element, e.g., "pos_chg_cmd" for "POSITION_CHANGING_COMMAND_1".
+The following example sets the trigger source to "POSITION_CHANGING_COMMAND_1" using a descriptive string.
+<div class="highlight"><pre><span></span><code><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;pos_chg_cmd&#39;</span> <span class="c1"># descriptive string, e.g. from INI file</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">trigsources</span> <span class="o">=</span> <span class="n">datarectools</span><span class="o">.</span><span class="n">gettrigsources</span><span class="p">(</span><span class="n">readout</span><span class="p">)</span>
+</code></pre></div></p>
+</p>
+</div>
+<h2 id="recording-data">Recording data</h2>
+<h3 id="starting-the-recording">Starting the recording</h3>
+<p>The method <code>Datarecorder.arm()</code> arms the data recorder, i.e., prepares it for the actual recording by</p>
+<ul>
+<li>writing the record sources and options for the data recorder to the device</li>
+<li>writing the trigger events for the record tables to the device</li>
+</ul>
+<p>When armed, the data recorder starts recording as soon as the specified trigger event occurs.</p>
+<div class="highlight"><pre><span></span><code><span class="n">drec</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">datarectools</span><span class="o">.</span><span class="n">RecordOptions</span><span class="o">.</span><span class="n">ACTUAL_POSITION_2</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">trigsources</span> <span class="o">=</span> <span class="n">datarectools</span><span class="o">.</span><span class="n">TriggerSources</span><span class="o">.</span><span class="n">POSITION_CHANGING_COMMAND_1</span>
+<span class="hll"><span class="n">drec</span><span class="o">.</span><span class="n">arm</span><span class="p">()</span>
+</span></code></pre></div>
+<h3 id="waiting-for-the-recording-to-finish">Waiting for the recording to finish</h3>
+<p>To wait for the triggered motion to finish, you can use the "wait" helper functions in <code>pipython.pitools</code>, for example <code>waitontarget()</code>. The function halts the application until the triggered motion has finished. It is called with an instance of <code>pidevice</code> and a single or a list of axis identifiers (string or integer).</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">pidevice</span><span class="o">.</span><span class="n">MVR</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">pitools</span><span class="o">.</span><span class="n">waitontarget</span><span class="p">(</span><span class="n">pidevice</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">])</span>
+<span class="o">...</span>
+</code></pre></div>
+<p>If the application is supposed to continue immediately after the data recorder has stopped recording, regardless of a motion having finished, the <code>Datarecorder.wait()</code> function may be used.</p>
+<div class="highlight"><pre><span></span><code><span class="n">drec</span><span class="o">.</span><span class="n">arm</span><span class="p">()</span>   <span class="c1"># data is being recorded if trigger event occurs</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>  <span class="c1"># recording has finished</span>
+</code></pre></div>
+<h2 id="reading-out-the-recorded-data">Reading out the recorded data</h2>
+<p>Recorded data can be read with the function <code>getdata()</code>. If you used <code>Datarecorder.wait()</code>, use the function <code>Datarecorder.read()</code> instead of <code>getdata()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">header</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">drec</span><span class="o">.</span><span class="n">getdata</span><span class="p">()</span>
+<span class="o">...</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">drec</span><span class="o">.</span><span class="n">arm</span><span class="p">()</span>
+<span class="n">drec</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<span class="n">header</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">drec</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>
+<p>Both functions call the GCS command <code>qDDR()</code> and wait for the recording to finish. Then they return the header and the data as a two-dimensional list with the first index indicating the record table and the second index indicating the recorded values in the table.</p>
+<p>If you don't want to wait until the recording has finished - as this could take a while, depending on the amount of data and the interface - you can call the GCS command <code>qDRR</code> directly.</p>
+<p><code>qDRR</code> returns immediately with the <em>GCS header</em> containing information on the recorded data. Then it starts a background task which internally buffers the data from the device as it is being transmitted. The status of the internal buffer can be queried with the <code>GCSDevice.bufstate</code> property. It indicates the transmission progress by float values in the range <code>0...1</code> and becomes <code>True</code> when the transmission has completed. Hence end a loop with <code>while bufstate is not True</code> and not with <code>while not bufstate</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">header</span> <span class="o">=</span> <span class="n">pidevice</span><span class="o">.</span><span class="n">qDRR</span><span class="p">(</span><span class="n">rectables</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">numvalues</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">pidevice</span><span class="o">.</span><span class="n">bufstate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reading data </span><span class="si">{:.1f}</span><span class="s1">%...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pidevice</span><span class="o">.</span><span class="n">bufstate</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The background task will lock any communication to the device for the duration of the data transmission. This means that although your application is actually able to continue after having called the <code>qDRR</code> command, any attempt on communication with the device will result in a deadlock. To prevent this always check <code>pidevice.bufstate</code>.</p>
+</div>
+<h2 id="processing-the-recorded-data">Processing the recorded data</h2>
+<h3 id="displaying-the-data-with-matplotlib">Displaying the data with matplotlib</h3>
+<p>The following example shows how to use the <em>header</em> and <em>data</em> from a recording stored in two record tables to create a plot. <strong>This requires matplotlib.</strong>
+<div class="highlight"><pre><span></span><code>    <span class="n">timescale</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;SAMPLE_TIME&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))]</span>
+    <span class="n">pyplot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timescale</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">pyplot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timescale</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="n">pyplot</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+    <span class="n">pyplot</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;NAME0&#39;</span><span class="p">],</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;NAME1&#39;</span><span class="p">])))</span>
+    <span class="n">pyplot</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Recorded data over time&#39;</span><span class="p">)</span>
+    <span class="n">pyplot</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pyplot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+<h3 id="converting-the-data-into-a-numpy-array">Converting the data into a NumPy array</h3>
+<p>If you are used to NumPy you can easily convert the recorded data into a NumPy array.
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">...</span>
+<span class="n">header</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">drec</span><span class="o">.</span><span class="n">getdata</span><span class="p">()</span>
+<span class="n">npdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="connect.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Device Connection" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Device Connection
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="datarecorder30.html" class="md-footer__link md-footer__link--next" aria-label="Next: Data Recorder GCS 3.0" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Data Recorder GCS 3.0
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://physikinstrumente.com" target="_blank" rel="noopener" title="PI home page" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144l-7.5-6.363z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://www.physikinstrumente.com/en/about-pi/legal-information/" target="_blank" rel="noopener" title="Legal information" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75z"/><path fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["toc.integrate"], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.c2e1ee47.min.js"></script>
+      
+    
+  </body>
+</html>
