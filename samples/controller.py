@@ -16,7 +16,9 @@ class PI:
         pidevice.qVER()
         pitools.startup(pidevice,[],[])
         self.pidevice = pidevice
-            
+        self.jump_counter = 0 
+        self.buffer = 0
+
     def movecenter(self):
         """Set 22.5,22.5 as mid point"""
         self.pidevice.MOV(self.pidevice.axes[:2],(22.5,22.5)) # initial position
@@ -71,6 +73,7 @@ class PI:
                 self.shift_y_values.append(float(row[1]))
         print("shift x_values:", self.shift_x_values)
         print("shift y_values:", self.shift_y_values)
+        self.buffer = len(self.shift_x_values) # number of jumps in the map
         return self.shift_x_values, self.shift_y_values
 
     def runmap(self,mov_pause_ms:float):
@@ -82,6 +85,17 @@ class PI:
             time.sleep(mov_pause_ms/1000)
             self.getpos()
         print("Done")
+    
+    def nextstep(self):
+        """Execute 1 jump in the map (it has to be loaded first with loadmap function). Useful for synchronizing with other devices."""
+        self.shift(self.shift_x_values[self.jump_counter],self.shift_y_values[self.jump_counter])
+        pitools.waitontarget(self.pidevice)
+        time.sleep(0.25)
+        self.getpos()
+        self.jump_counter += 1
+        if self.buffer == self.jump_counter:
+            self.jump_counter = 0
+            print("Restarting map")
         
     def runpath(self,shift_x_values:list,shift_y_values:list,mov_pause_ms:float):
         """Run relative 2D movement path based on input lists"""
