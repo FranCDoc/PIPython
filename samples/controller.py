@@ -7,6 +7,8 @@ from pipython import GCSDevice, pitools
 import time
 import csv
 
+SET_PAUSE = 1.5 # pause between movements in seconds
+
 class PI:
     def __init__(self):
         """Initialize PI controller"""
@@ -26,18 +28,15 @@ class PI:
     def movecenter(self):
         """Set 22.5,22.5 as mid point"""
         self.pidevice.MOV(self.pidevice.axes[:2],(22.5,22.5)) # initial position
-        time.sleep(0.25) # give some time to move before asking for position
+        time.sleep(SET_PAUSE) # give some time to move before asking for position
         res = self.pidevice.qPOS()
         print("Midpoint set -> current position:",res)
-        print("Your limits are 7.5-45 (um) for both x and y.")
         x = float(res["1"])
         y = float(res["2"])
         return x,y
     
     def move(self,x:float,y:float):
         """Move to absolute position"""
-        if float(x) > 44.9 or float(x) < 7.49 or float(y) > 44.9 or float(y) < 7.49:
-            return "Out of limits, stay in range 7.5-45 (um) for both x and y."
         self.pidevice.MOV(self.pidevice.axes[:2],(float(x),float(y))) # move to new position in absolute coordinates
 
     def shift(self,x:float,y:float):
@@ -51,9 +50,6 @@ class PI:
         
         new_pos_x = float(actual_pos_x) + shift_x # new absolute position x
         new_pos_y = float(actual_pos_y) + shift_y # new absolute position y
-
-        if float(new_pos_x) > 44.9 or float(new_pos_x) < 7.49 or float(new_pos_y) > 44.9 or float(new_pos_y) < 7.49:
-            return "Out of limits, stay in range 7.5-45 (um) for both x and y."
         
         self.pidevice.MOV(self.pidevice.axes[:2],(new_pos_x,new_pos_y)) # move to new position in absolute coordinates
     
@@ -125,7 +121,7 @@ class PI:
         """Execute 1 jump in the relative coordinates map (it has to be loaded first with load_rel_map function). Useful for synchronizing with other devices."""
         self.shift(self.shift_x_values[self.shift_counter],self.shift_y_values[self.shift_counter])
         pitools.waitontarget(self.pidevice)
-        time.sleep(0.25)
+        time.sleep(SET_PAUSE)
         self.getpos()
         self.shift_counter += 1
         if self.buffer_rel == self.shift_counter:
@@ -136,7 +132,7 @@ class PI:
         """Execute 1 jump in the absolute coordinates map (it has to be loaded first with load_abs_map function). Useful for synchronizing with other devices."""
         self.move(self.move_x_values[self.move_counter],self.move_y_values[self.move_counter])
         pitools.waitontarget(self.pidevice)
-        time.sleep(0.25)
+        time.sleep(SET_PAUSE)
         self.getpos()
         self.move_counter += 1
         if self.buffer_abs == self.move_counter:
