@@ -69,7 +69,7 @@ class PI:
         return self.offset_x,self.offset_y
     
     def load_rel_map(self,map_file:str):
-        """Get relative 2D movement path from a CSV file. First row is x, second row is y."""
+        """Get relative 2D movement path from a CSV file. First row is x, second row is y"""
         map_file = str(map_file)+".csv"
         self.shift_x_values = []
         self.shift_y_values = []
@@ -84,7 +84,7 @@ class PI:
         return self.shift_x_values, self.shift_y_values
             
     def load_abs_map(self,map_file:str):
-        """Get absolute 2D movement path from a CSV file. First row is x, second row is y."""
+        """Get absolute 2D movement path from a CSV file. First row is x, second row is y"""
         map_file = str(map_file)+".csv"
         self.move_x_values = []
         self.move_y_values = []
@@ -117,8 +117,24 @@ class PI:
             self.getpos()
         print("Done")
 
+    def jump_abs_map(self,index:int):
+        """Execute 1 indexed jump in the absolute coordinates map.
+        """
+        self.move(self.move_x_values[index],self.move_y_values[index])
+        pitools.waitontarget(self.pidevice)
+        time.sleep(SET_PAUSE)
+        self.getpos()
+
+    def jump_rel_map(self,index:int):
+        """Execute 1 indexed jump in the relative coordinates map.
+        """
+        self.shift(self.shift_x_values[index],self.shift_y_values[index])
+        pitools.waitontarget(self.pidevice)
+        time.sleep(SET_PAUSE)
+        self.getpos()
+
     def nextshift(self):
-        """Execute 1 jump in the relative coordinates map (it has to be loaded first with load_rel_map function). Useful for synchronizing with other devices."""
+        """Execute 1 jump in the relative coordinates map (it has to be loaded first with load_rel_map function). Useful for synchronizing with other devices"""
         self.shift(self.shift_x_values[self.shift_counter],self.shift_y_values[self.shift_counter])
         pitools.waitontarget(self.pidevice)
         time.sleep(SET_PAUSE)
@@ -129,7 +145,7 @@ class PI:
             print("Restarting map")
     
     def nextmove(self):
-        """Execute 1 jump in the absolute coordinates map (it has to be loaded first with load_abs_map function). Useful for synchronizing with other devices."""
+        """Execute 1 jump in the absolute coordinates map (it has to be loaded first with load_abs_map function). Useful for synchronizing with other devices"""
         self.move(self.move_x_values[self.move_counter],self.move_y_values[self.move_counter])
         pitools.waitontarget(self.pidevice)
         time.sleep(SET_PAUSE)
