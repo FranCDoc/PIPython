@@ -1,8 +1,3 @@
-"""
-PI controller
-Author: Franco Chiesa Docampo
-"""
-
 from pipython import GCSDevice, pitools
 import time
 import csv
@@ -70,7 +65,7 @@ class PI:
     
     def load_rel_map(self,map_file:str):
         """Get relative 2D movement path from a CSV file. First row is x, second row is y"""
-        map_file = str(map_file)+".csv"
+        map_file = str(map_file)
         self.shift_x_values = []
         self.shift_y_values = []
         with open(map_file, newline='') as csvfile:
@@ -85,7 +80,7 @@ class PI:
             
     def load_abs_map(self,map_file:str):
         """Get absolute 2D movement path from a CSV file. First row is x, second row is y"""
-        map_file = str(map_file)+".csv"
+        map_file = str(map_file)
         self.move_x_values = []
         self.move_y_values = []
         with open(map_file, newline='') as csvfile:
@@ -96,7 +91,8 @@ class PI:
         print("move x_values:", self.move_x_values)
         print("move y_values:", self.move_y_values)
         self.buffer_abs = len(self.move_x_values)
-
+        return len(self.move_x_values)
+    
     def run_rel_map(self,mov_pause_ms:float):
         """Run relative 2D movement map"""
         for i in range(len(self.shift_x_values)):
@@ -118,16 +114,15 @@ class PI:
         print("Done")
 
     def jump_abs_map(self,index:int):
-        """Execute 1 indexed jump in the absolute coordinates map.
-        """
+        """Execute 1 indexed jump in the absolute coordinates map."""
         self.move(self.move_x_values[index],self.move_y_values[index])
         pitools.waitontarget(self.pidevice)
         time.sleep(SET_PAUSE)
-        self.getpos()
+        res = self.getpos()
+        return res
 
     def jump_rel_map(self,index:int):
-        """Execute 1 indexed jump in the relative coordinates map.
-        """
+        """Execute 1 indexed jump in the relative coordinates map."""
         self.shift(self.shift_x_values[index],self.shift_y_values[index])
         pitools.waitontarget(self.pidevice)
         time.sleep(SET_PAUSE)
