@@ -1,18 +1,47 @@
-from pipython import GCSDevice, pitools
+"""
+Quick test:
+    sudo python3
+    PI_PATH = "absolute_coor_2d_path.csv"
+    import xycontroller as xyc
+    c = xyc.PI()
+    c.movecenter()  # initial calibration
+    num_movements = c.load_abs_map(PI_PATH)
+    c.jump_abs_map(0)
+    c.getpos()
+    c.jump_abs_map(j)
+    c.getpos()
+"""
+
 import time
 import csv
+from pipython import GCSDevice, pitools
+from pipython.datarectools import getservotime
+from pipython import PILogger, DEBUG, INFO, WARNING, ERROR, CRITICAL
 
-SET_PAUSE = 1.5 # pause between movements in seconds
+DEBUG = 0
+
+if DEBUG:
+    PILogger.setLevel(DEBUG)
+
+SET_PAUSE = 2 # pause between movements in seconds
 
 class PI:
     def __init__(self):
         """Initialize PI controller"""
         pidevice = GCSDevice()
-        devices = pidevice.EnumerateUSB()
-        pidevice.ConnectUSB(devices[0]) # connect to the first device
-        pidevice.qVER()
-        pitools.startup(pidevice,[],[])
+
         self.pidevice = pidevice
+        devices = self.pidevice.EnumerateUSB()
+        print("=========== DEVICES ===========: ",devices)
+        self.pidevice.ConnectUSB(devices[0]) # connect to the first device
+        self.pidevice.qVER()
+
+        ################################ PI CONFIG STARTUP ################################
+        pitools.startup(self.pidevice, ['P-541.2DD', 'P-541.2DD', None], ['ATZ', 'ATZ', None])
+        res = pitools.getservo(self.pidevice, None)
+        print("PI servo state:", res)
+        ###################################################################################
+
         self.shift_counter = 0 # counter for relative map
         self.move_counter = 0 # counter for absolute map
         self.buffer_abs = 0 # number of jumps in the absolute map
@@ -22,10 +51,14 @@ class PI:
 
     def movecenter(self):
         """Set 22.5,22.5 as mid point"""
+        print("Going to (x,y) = (22.5,22.5).")
         self.pidevice.MOV(self.pidevice.axes[:2],(22.5,22.5)) # initial position
+        pitools.waitonautozero(self.pidevice, self.pidevice.axes[:2])
+        servotime = getservotime(self.pidevice)
+        print("Servotime: ",servotime)
         time.sleep(SET_PAUSE) # give some time to move before asking for position
         res = self.pidevice.qPOS()
-        print("Midpoint set -> current position:",res)
+        print("Midpoint set to (x,y) = (22.5,22.5). Current position =",res)
         x = float(res["1"])
         y = float(res["2"])
         return x,y
