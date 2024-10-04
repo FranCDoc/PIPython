@@ -217,4 +217,4 @@
     >>> pidevice.qPOS()
     OrderedDict([('1', 6.541518688), ('2', 6.434470177), ('3', 0.0)])
 
-### Check the PI API in controller.py (samples folder)
+### Check the PI API in xycontroller.py (samples folder)
